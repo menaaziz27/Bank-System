@@ -110,8 +110,14 @@ def run():
                     print('amount must be a positive number')
                     continue
             elif choice == '3':
-                withdraw_amount = int(
-                    input("Enter the amount you want to withdraw: "))
+                # TODO check if the user enters a string
+                #! notice
+                try:
+                    withdraw_amount = int(
+                        input("Enter the amount you want to withdraw: "))
+                except:
+                    print('Strings are not a valid input')
+                    continue
                 # make sure that the user input is a positive number
                 if (withdraw_amount > 0):
                     if(float(valid_user[2]) < withdraw_amount):
@@ -119,10 +125,11 @@ def run():
                             "You cannot withdraw amount that's larger than the existing one")
                         continue
                     withdrawal(user_row_index, valid_user, withdraw_amount)
-                else:
+                elif (withdraw_amount < 0):
                     print('amount must be a positive number')
                     continue
-                pass
+                else:
+                    print('Strings are not a valid input')
             elif choice == '4':
                 print(f"GoodBye, {valid_user[1]}")
                 isRunning = False
