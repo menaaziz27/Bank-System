@@ -69,14 +69,21 @@ def withdrawal(user_row_index, user_row, withdraw_amount):
 def run():
     """ Starting the system """
 
-    accountNumber = input("What's your account number ?\n")
     # check if the user input is actually a number
     # if(type(accountNumber) == str):
     #     print('Strings not valid. try with a number')
     #     return run()
 
-    # the user row in csv
-    user_row_index, valid_user = get_client_data(accountNumber)
+    while(True):
+        try:
+            accountNumber = input("Enter your bank account number ?\n")
+            # the user row in csv
+            user_row_index, valid_user = get_client_data(accountNumber)
+            if(valid_user):
+                break
+        except Exception as e:
+            print('invalid account number')
+            continue
 
     # if the user account exists ..
     if(valid_user):
