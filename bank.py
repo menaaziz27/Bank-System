@@ -114,13 +114,18 @@ def run():
                     print('amount must be a positive number')
                     continue
             elif choice == '3':
-                with_amount = int(
+                withdraw_amount = int(
                     input("Enter the amount you want to withdraw: "))
                 # make sure that the user input is a positive number
-                if (with_amount > 0):
-                    withdrawal(user_row_index, valid_user, with_amount)
+                if (withdraw_amount > 0):
+                    if(float(valid_user[2]) < withdraw_amount):
+                        print(
+                            "You cannot withdraw amount that's larger than the existing one")
+                        continue
+                    withdrawal(user_row_index, valid_user, withdraw_amount)
                 else:
                     print('amount must be a positive number')
+                    continue
                 pass
             elif choice == '4':
                 print(f"GoodBye, {valid_user[1]}")
