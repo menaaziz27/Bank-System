@@ -4,7 +4,6 @@ import csv
 def Reading_CSV():
     with open('sample.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
-        # print(csv_reader)
         list_of_rows = []
         for row in csv_reader:
             list_of_rows.append(row)
@@ -27,9 +26,7 @@ List_of_allData = Reading_CSV()
 def get_client_data(account_num):
 
     for index, row in enumerate(List_of_allData):
-        # print(row)
         if(account_num in row):
-            # print('yes!')
             return index, row
 
     return False
@@ -40,14 +37,11 @@ def welcome():
 
 
 # Show user current balane
-# !works
 def ShowBalance(user_row):
     print(user_row[2])
-    # pass
 
 
 # user deposite process:
-# !works
 def deposite(user_row_index, user_row, amount):
     # updated_user_salary
     updated_user_salary = float(user_row[2]) + amount
@@ -56,13 +50,9 @@ def deposite(user_row_index, user_row, amount):
     List_of_allData[user_row_index] = user_row
     Write_updated_data(List_of_allData)
     print('deposite process is done successfully!')
-    # print(updated_row)
-    pass
-    # user withdrawal
+
 
 # TODO handle errors and user input
-
-
 def withdrawal(user_row_index, user_row, withdraw_amount):
 
     # 12000 => 13000
@@ -77,9 +67,8 @@ def withdrawal(user_row_index, user_row, withdraw_amount):
 
 
 def run():
-    """
-    start the system
-    """
+    """ Starting the system """
+
     accountNumber = input("What's your account number ?\n")
     # check if the user input is actually a number
     # if(type(accountNumber) == str):
@@ -130,6 +119,8 @@ def run():
             elif choice == '4':
                 print(f"GoodBye, {valid_user[1]}")
                 isRunning = False
+            else:
+                print('Unexpected input .. the must input digits e.g 1,2,3,4')
         # else block to handle user input
     else:
         # print him an error and let him try again
