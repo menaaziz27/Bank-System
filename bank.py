@@ -13,7 +13,7 @@ def Reading_CSV():
 # Validate user and get user data if the account number valid
 # if it's not Valid return False
 def Write_updated_data(listOfData):
-    writer_obj = open('sample.csv', 'w')
+    writer_obj = open('sample.csv', 'w', newline='')
     csv_writer = csv.writer(writer_obj)
     csv_writer.writerows(listOfData)
     writer_obj.close()
@@ -31,9 +31,12 @@ def get_client_data(account_num):
 
     return False
 
+def starting_welcome():
+    print('Weclome!')
 
-def welcome():
-    print("Welcome .. let me help you!")
+
+def welcome(name):
+    print(f'Welcome {name}')
 
 
 # Show user current balane
@@ -43,36 +46,30 @@ def ShowBalance(user_row):
 
 # user deposite process:
 def deposite(user_row_index, user_row, amount):
-    # updated_user_salary
+
     updated_user_salary = float(user_row[2]) + amount
     user_row[2] = updated_user_salary
-    # ShowBalance(user_row)
     List_of_allData[user_row_index] = user_row
+
+    # update the data in the csv file
     Write_updated_data(List_of_allData)
+
     print('deposite process is done successfully!')
 
 
 # TODO handle errors and user input
 def withdrawal(user_row_index, user_row, withdraw_amount):
 
-    # 12000 => 13000
     updated_user_salary = float(user_row[2]) - withdraw_amount
     user_row[2] = updated_user_salary
-    # ShowBalance(user_row)
     List_of_allData[user_row_index] = user_row
     Write_updated_data(List_of_allData)
     print('Withdraw process is done successfully!')
-    # print(List_of_allData)
-    # pass
 
 
 def run():
-    """ Starting the system """
 
-    # check if the user input is actually a number
-    # if(type(accountNumber) == str):
-    #     print('Strings not valid. try with a number')
-    #     return run()
+    """ Starting the system """
 
     while(True):
         try:
@@ -87,11 +84,13 @@ def run():
 
     # if the user account exists ..
     if(valid_user):
-
+        # print(valid_user)
+        username = valid_user[1]
+        # print(username)
         isRunning = True
 
         # welcome and show him the menu show him the menu
-        welcome()
+        welcome(username)
 
         while(isRunning):
             print('1) Show current balance.')
@@ -102,7 +101,14 @@ def run():
             if(choice == '1'):
                 ShowBalance(valid_user)
             elif choice == '2':
-                amount = int(input("Enter Amount Number: "))
+                while True:
+                    try:
+                        amount = int(input("Enter Amount Number: "))
+                        if(amount):
+                            break
+                    except:
+                        print('Strings not valid. try with a number')
+                        
                 # make sure that the user input is a positive number
                 if (amount > 0):
                     deposite(user_row_index, valid_user, amount)
@@ -142,5 +148,5 @@ def run():
         run()
 
 
-welcome()
+starting_welcome()
 run()
